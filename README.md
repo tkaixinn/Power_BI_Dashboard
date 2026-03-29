@@ -1,10 +1,20 @@
 # 📊 Data Job Market Analysis Dashboard
 
-**Impact:** This dashboard helps job seekers and data professionals make **data-driven career decisions** by understanding market trends, compensation, and role characteristics.
+**Impact:** This dashboard helps job seekers and data professionals make **data-driven career decisions** by uncovering market trends, compensation patterns, and role characteristics.
 
 ---
 ## 🧠 Project Summary
 This project is an end-to-end **data analytics and visualization** study of the global data jobs market, built using **Power BI**.  
+
+This is a **2-part Power BI project** that explores the data job market from both a **macro (market-level)** and **micro (skill-level)** perspective.
+
+- **Part 1 — Market Analysis Dashboard**  
+  Focuses on job demand, salary trends, and role characteristics  
+
+- **Part 2 — Skills Intelligence Dashboard (v2.0)**  
+  Focuses on **skills demand, salary by skill, and skill-job relationships**
+
+Together, these dashboards transform raw job posting data into **actionable career insights**.
 
 The goal was to transform raw job data into **actionable insights** about:
 - Job demand trends  
@@ -139,3 +149,124 @@ This view enables **deep-dive analysis** into a specific role (e.g. Machine Lear
 3. Click on visuals to **interact and explore relationships**  
 4. Use **drill-through** to access detailed role-specific insights  
 
+---
+
+# 🚀 Part 2: Skills Intelligence Dashboard (v2.0) 
+
+![Skills Dashboard](images/image3.jpeg)
+
+---
+
+## 🔍 Overview
+
+This dashboard builds on Part 1 by shifting focus from **job roles → skills intelligence**.
+
+While Part 1 answers the question of  *“Which roles are valuable?”*,  
+Part 2 answers:
+
+- **Which skills are most in demand?**
+- **What is the salary impact of specific skills?**
+- **How do skills translate into job opportunities?**
+
+This represents a deeper layer of analysis, moving from **market trends → actionable skill insights**.
+
+---
+
+## 🎯 Objective
+
+To help users:
+- Identify **high-demand skills** in the data industry  
+- Understand the **salary impact of specific tools and technologies**  
+- Evaluate how **skill combinations influence employability**  
+
+---
+
+## 📌 Key KPIs
+
+- **Total Job Count**
+- **Average Skills per Job**
+- **Median Yearly Salary**
+- **Median Hourly Salary**
+
+---
+
+## 🧠 Key Insights & Findings
+
+### 1. Top Skills in Data
+- Ranks skills based on job demand  
+- Highlights widely required skills such as:
+  - Python  
+  - SQL  
+  - AWS  
+  - Azure  
+
+👉 Insight: Foundational technical skills dominate across most roles.
+
+---
+
+### 2. Median Salary by Skill
+- Compares salary levels across different skills  
+
+👉 Insight: Specialized tools often yield **higher compensation** than general-purpose skills.
+
+---
+
+### 3. Skill Density (Skills per Job)
+- Measures how many skills are expected per role  
+- Reflects increasing demand for **multi-skilled candidates**
+
+---
+
+### 4. Interactive Filtering
+- Filter by:
+  - Job Title  
+  - Country  
+- Enables dynamic exploration of **skill demand across different contexts**
+
+---
+
+
+## ⚙️ Technical Implementation (Part 2 Focus)
+
+This dashboard demonstrates deeper technical application in **data transformation and modelling**:
+
+### 🔄 Data Preparation (Power Query & M Language)
+- Loaded and combined datasets from:
+  - CSV files  
+  - External/structured sources  
+- Cleaned and transformed raw data using **Power Query Editor**
+- Applied transformations using **M Language**, including:
+  - Handling null values  
+  - Standardizing formats  
+  - Creating structured datasets for analysis  
+
+---
+
+### 🧮 Data Modelling & DAX
+
+#### Calculated Columns
+- Created new columns using **DAX** to enrich the dataset  
+- Enabled better categorization and analysis of job-skill relationships  
+
+#### Measures (Explicit DAX Measures)
+- Built custom measures such as:
+  - Job Count  
+  - Skill-based aggregations  
+- Used DAX functions like:
+  - `CALCULATE`  
+  - `ALLSELECTED`  
+  - `DIVIDE`  
+
+---
+
+### 🧠 Key Technical Challenge
+
+A key challenge was correctly managing filter context in skill-level aggregations, as naïve calculations would produce misleading global percentages. I addressed this by leveraging ```ALLSELECTED``` within ```CALCULATE``` to compute context-aware distributions, ensuring metrics dynamically reflect user selections, rather than producing misleading global aggregates
+
+Example:
+
+```DAX
+DIVIDE(
+    [Job Count],
+    CALCULATE([Job Count], ALLSELECTED(Skills))
+)
